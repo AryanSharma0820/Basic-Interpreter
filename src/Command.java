@@ -26,6 +26,19 @@ public class Command
 		}
 	}
 
+	public boolean hasKeyword()
+	{
+		try
+		{
+			Integer.parseInt(this.line.trim());
+			return false;
+		}
+		catch (NumberFormatException e)
+		{
+			return true;
+		}
+	}
+
 	public int getLineNumber()
 	{
 		if (!hasLineNumber())
@@ -38,6 +51,9 @@ public class Command
 	{
 		if (!hasLineNumber())
 			return this.line.substring(0, this.line.indexOf(" "));
+
+		else if (!hasKeyword()
+			return null;
 		else
 			return this.line.substring(this.line.indexOf(" ") + 1, this.line.indexOf(" ", this.line.indexOf(" ") + 1));
 	}

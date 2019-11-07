@@ -15,9 +15,17 @@ public class Program
 			return false;
 		else
 		{
-			ListIterator<Command> listIterator = list.listIterator();
 			if (list.isEmpty())
 				list.add(command);
+			else if (!command.hasKeyword())
+			{
+				ListIterator<Command> listIterator = list.listIterator();
+				while (listIterator.hasNext())
+				{
+					if (command.getLineNumber() == listIterator.next().getLineNumber())
+						listIterator.remove();
+				}
+			}
 			else if (command.getLineNumber() < list.getFirst().getLineNumber())
 				list.addFirst(command);
 			else if (command.getLineNumber() > list.getLast().getLineNumber())
@@ -26,6 +34,7 @@ public class Program
 				list.set(0, command);
 			else
 			{
+	 			ListIterator<Command> listIterator = list.listIterator();
 				boolean bAdded = false;
 				Command previous = listIterator.next();
 
