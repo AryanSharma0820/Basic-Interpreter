@@ -5,7 +5,7 @@ public class Command
 
 	public Command(String line)
 	{
-		this.line = line;
+		this.line = line.toUpperCase();
 	}
 
 	public String getLine()
@@ -51,8 +51,7 @@ public class Command
 	{
 		if (!hasLineNumber())
 			return this.line.substring(0, this.line.indexOf(" "));
-
-		else if (!hasKeyword()
+		else if (!hasKeyword())
 			return null;
 		else
 			return this.line.substring(this.line.indexOf(" ") + 1, this.line.indexOf(" ", this.line.indexOf(" ") + 1));
@@ -87,5 +86,10 @@ public class Command
 			}
 			default : return "";
 		}
+	}
+	
+	public String toString()
+	{
+		return this.line;
 	}
 }
