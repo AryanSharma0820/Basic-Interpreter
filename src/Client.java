@@ -13,7 +13,7 @@ public class Client
                 Program.catalog();
             else if (command.getLine().equalsIgnoreCase("HOME"))
                 Program.home();
-            else if (command.getKeyword().equals("PRINT"))
+            else if (!command.hasLineNumber() && command.getKeyword().equals("PRINT"))
             	Program.print(command);
             else
             	Program.addCommand(command);

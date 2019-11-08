@@ -17,7 +17,10 @@ public class Command
 	{
 		try
 		{
-			Integer.parseInt(this.line.substring(0, this.line.indexOf(" ")));
+			if(getLine().indexOf(" ") != -1)
+				Integer.parseInt(getLine().substring(0, getLine().indexOf(" ")));
+			else
+				Integer.parseInt(getLine());
 			return true;
 		}
 		catch(NumberFormatException e)
@@ -30,7 +33,7 @@ public class Command
 	{
 		try
 		{
-			Integer.parseInt(this.line.trim());
+			Integer.parseInt(getLine().trim());
 			return false;
 		}
 		catch (NumberFormatException e)
@@ -44,17 +47,17 @@ public class Command
 		if (!hasLineNumber())
 			return -1;
 		else
-			return Integer.parseInt(this.line.substring(0, this.line.indexOf(" ")));
+			return Integer.parseInt(getLine().substring(0, (getLine() + " ").indexOf(" ")));
 	}
 
 	public String getKeyword()
 	{
 		if (!hasLineNumber())
-			return this.line.substring(0, this.line.indexOf(" "));
+			return getLine().substring(0, getLine().indexOf(" "));
 		else if (!hasKeyword())
 			return null;
 		else
-			return this.line.substring(this.line.indexOf(" ") + 1, this.line.indexOf(" ", this.line.indexOf(" ") + 1));
+			return getLine().substring(getLine().indexOf(" ") + 1, (getLine() + " ").indexOf(" ", getLine().indexOf(" ") + 1));
 	}
 
 	public String getParameters()
@@ -63,33 +66,34 @@ public class Command
 		{
 			case "LET" :
 			{
-				String[] elements = this.line.split(" ", 3);
-				return elements[2];
+				String[] elements = getLine().split(" ", 3);
+				return elements[2].trim();
 			}
 			case "PRINT" :
 			{
 				if (hasLineNumber())
 				{
-					String[] elements = this.line.split(" ", 3);
-					return elements[2];
+					String[] elements = getLine().split(" ", 3);
+					return elements[2].trim();
 				}
 				else
 				{
-					String[] elements = this.line.split(" ", 2);
-					return elements[1];
+					String[] elements = getLine().split(" ", 2);
+					return elements[1].trim();
 				}
 			}
 			case "GOTO" :
 			{
-				String[] elements = this.line.split(" ", 3);
-				return elements[2];
+				String[] elements = getLine().split(" ", 3);
+				return elements[2].trim();
 			}
+			
 			default : return "";
 		}
 	}
 	
 	public String toString()
 	{
-		return this.line;
+		return getLine();
 	}
 }
